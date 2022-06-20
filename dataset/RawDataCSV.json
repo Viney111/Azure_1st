@@ -1,0 +1,37 @@
+{
+	"name": "RawDataCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TwitterData",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "tweets_temp.csv",
+				"fileSystem": "tweetdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "tweet_id",
+				"type": "String"
+			},
+			{
+				"name": "user",
+				"type": "String"
+			},
+			{
+				"name": "Tweet",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

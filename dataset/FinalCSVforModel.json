@@ -1,0 +1,24 @@
+{
+	"name": "FinalCSVforModel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TwitterData",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "tweets_final.csv",
+				"fileSystem": "tweetdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

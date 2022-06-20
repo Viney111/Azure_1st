@@ -1,0 +1,30 @@
+{
+	"name": "Raw_SQLPool",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [
+			{
+				"name": "tweet_id",
+				"type": "varchar"
+			},
+			{
+				"name": "user_name",
+				"type": "varchar"
+			},
+			{
+				"name": "Tweet",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tbl_tweet_rawdata"
+		},
+		"sqlPool": {
+			"referenceName": "asa_twitter_db",
+			"type": "SqlPoolReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

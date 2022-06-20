@@ -1,0 +1,14 @@
+{
+	"name": "twitterconfig",
+	"properties": {
+		"configs": {
+			"tweet_api_key": "vrvjzw2C4OYLJ9GMT2Q0Pf3sK"
+		},
+		"created": "2022-06-18T06:10:47.033Z",
+		"createdBy": "vineycs2017@gmail.com",
+		"annotations": [],
+		"configMergeRule": {
+			"artifact.currentOperation.tweet_api_key": "replace"
+		}
+	}
+}

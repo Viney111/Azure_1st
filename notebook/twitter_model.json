@@ -1,0 +1,253 @@
+{
+	"name": "twitter_model",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "vksynapsespark",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "38276c93-b1cf-4c57-82ab-cce34dcebcd7"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/dd613466-f3a4-43b2-aa9f-cb105719604f/resourceGroups/CFP_Practice/providers/Microsoft.Synapse/workspaces/asa-wsviney/bigDataPools/vksynapsespark",
+				"name": "vksynapsespark",
+				"type": "Spark",
+				"endpoint": "https://asa-wsviney.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/vksynapsespark",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"import nltk\n",
+					"import os\n",
+					"import pandas as pd\n",
+					"import re\n",
+					"import nltk\n",
+					"import fsspec\n",
+					"import pickle\n",
+					"from azure.storage.blob import BlobClient\n",
+					"from pyspark.sql import SparkSession"
+				],
+				"attachments": null,
+				"execution_count": 91
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"df = spark.read.load('abfss://tweetdata@dlsaviney.dfs.core.windows.net/tweets_temp.csv',format='csv',header=True)"
+				],
+				"attachments": null,
+				"execution_count": 92
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"fsspec_obj = fsspec.open('abfss://tweetdata@dlsaviney.dfs.core.windows.net/logistic_model.pkl')\n",
+					"nltk.download('stopwords')\n",
+					"nltk.download('wordnet')\n",
+					"nltk.download('omw-1.4')\n",
+					"with fsspec_obj.open() as file:\n",
+					"    bow_obj = pickle.load(file)\n",
+					"    model = pickle.load(file)"
+				],
+				"attachments": null,
+				"execution_count": 93
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"def tokenization(data):\n",
+					"    \"\"\"\n",
+					"    :param data: It will receive the tweet and perform tokenization and remove the stopwords\n",
+					"    :return: It will return the cleaned data\n",
+					"    \"\"\"\n",
+					"    stop_words = set(nltk.corpus.stopwords.words('english'))\n",
+					"    stop_words.remove('no')\n",
+					"    stop_words.remove('not')\n",
+					"\n",
+					"    tokenizer = nltk.tokenize.TweetTokenizer()\n",
+					"\n",
+					"    document = []\n",
+					"    for text in data:\n",
+					"        collection = []\n",
+					"        tokens = tokenizer.tokenize(text)\n",
+					"        for token in tokens:\n",
+					"            if token not in stop_words:\n",
+					"                if '#' in token:\n",
+					"                    collection.append(token)\n",
+					"                else:\n",
+					"                    collection.append(re.sub(\"@\\S+|https?:\\S+|http?:\\S|[^A-Za-z0-9]+\", \" \", token))\n",
+					"        document.append(\" \".join(collection))\n",
+					"    return document"
+				],
+				"attachments": null,
+				"execution_count": 94
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"def lemmatization(data):\n",
+					"    \"\"\"\n",
+					"    :param data: Receive the tokenized data\n",
+					"    :return: Return the cleaned data\n",
+					"    \"\"\"\n",
+					"    lemma_function = nltk.stem.wordnet.WordNetLemmatizer()\n",
+					"    sentence = []\n",
+					"    for text in data:\n",
+					"        document = []\n",
+					"        words = text.split(' ')\n",
+					"        for word in words:\n",
+					"            document.append(lemma_function.lemmatize(word))\n",
+					"        sentence.append(\" \".join(document))\n",
+					"    return sentence\n",
+					"\n",
+					"def get_tweet_sentiment(my_tweet) -> str:\n",
+					"    \"\"\"\n",
+					"        Here we'll perform predictions on the data given by the tweeter.\n",
+					"    \"\"\"\n",
+					"    tokenized_data = tokenization([my_tweet])\n",
+					"    lemmatized_data = lemmatization(tokenized_data)\n",
+					"    temp = bow_obj.transform(lemmatized_data)\n",
+					"    pred = model.predict(temp)\n",
+					"    if pred == 0:\n",
+					"        return 'Positive'\n",
+					"    else:\n",
+					"        return 'Negative'"
+				],
+				"attachments": null,
+				"execution_count": 95
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"azure_storage_conn = \"DefaultEndpointsProtocol=https;AccountName=dlsaviney;AccountKey=336GExQh++aRZhhk2aI4EO8bJCOL9c7yIJbAUOdwG5DoGYGUKqpILQTWxNS5U9BAc/xwPNu1IiR7+AStGteisQ==;EndpointSuffix=core.windows.net\"\n",
+					"tweet_df = df.toPandas()\n",
+					"sentiment_results = []\n",
+					"for tweet in tweet_df['Tweet']:\n",
+					"    sentiment_results.append(get_tweet_sentiment(tweet))\n",
+					"tweet_df ['Sentiments_Predictions'] = sentiment_results\n",
+					"spark_df =spark.createDataFrame(tweet_df)\n",
+					"spark_df.createOrReplaceTempView(\"sentiment_data\")"
+				],
+				"attachments": null,
+				"execution_count": 96
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "scala"
+					}
+				},
+				"source": [
+					"%%spark\n",
+					"val scala_df = spark.sql(\"SELECT * FROM sentiment_data\")\n",
+					"scala_df.write.mode(\"append\").synapsesql(\"asa_twitter_db.dbo.tbl_tweet_sentiment\")"
+				],
+				"attachments": null,
+				"execution_count": 100
+			}
+		]
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "tweetdata_script",
+	"properties": {
+		"content": {
+			"query": "SELECT * from sys.database_scoped_credentials;\n\n\nCREATE TABLE tbl_tweet_rawdata\n(\n    tweet_id VARCHAR(70),\n    user_name VARCHAR(80),\n    Tweet VARCHAR(8000)\n)\n\nCOPY INTO tbl_tweet_rawdata FROM 'https://dlsaviney.blob.core.windows.net/tweetdata/tweets_temp.csv'\nWITH\n(   FIRSTROW = 2,\n    CREDENTIAL = \n        (\n            IDENTITY = 'Shared Access Signature',\n            SECRET = 'sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupx&se=2022-06-16T17:54:04Z&st=2022-06-16T09:54:04Z&spr=https&sig=N2e%2BDNJIHpo8LBf8j4404zN0WBgmwBA8IasE7c1ZXI8%3D'\n        ),\n    ERRORFILE = 'https://dlsaviney.blob.core.windows.net/tweetdata/error.csv',\n    ERRORFILE_CREDENTIAL = (\n            IDENTITY = 'Shared Access Signature',\n            SECRET = 'sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupx&se=2022-06-16T17:54:04Z&st=2022-06-16T09:54:04Z&spr=https&sig=N2e%2BDNJIHpo8LBf8j4404zN0WBgmwBA8IasE7c1ZXI8%3D'\n        )\n    \n);\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "asatwitterdb",
+				"poolName": "asatwitterdb"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
