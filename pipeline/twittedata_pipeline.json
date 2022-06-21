@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"functionName": "TwitterStream?name=VineyKhaneja",
+					"functionName": "TwitterStream?name=elonmusk",
 					"method": "GET"
 				},
 				"linkedServiceName": {

@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "4920c72f-9dbf-4f02-9252-5e878a07b176"
+				"spark.autotune.trackingId": "5752b8e7-8bad-4798-a6f4-4263b9552990"
 			}
 		},
 		"metadata": {
@@ -61,7 +61,7 @@
 					"from azure.storage.blob import BlobClient\n",
 					"from pyspark.sql import SparkSession"
 				],
-				"execution_count": 40
+				"execution_count": 91
 			},
 			{
 				"cell_type": "code",
@@ -78,10 +78,9 @@
 					"collapsed": false
 				},
 				"source": [
-					"df = spark.read.load('abfss://tweetdata@dlsaviney.dfs.core.windows.net/tweets_temp.csv',format='csv',header=True)\n",
-					"df.show()"
+					"df = spark.read.load('abfss://tweetdata@dlsaviney.dfs.core.windows.net/tweets_temp.csv',format='csv',header=True)"
 				],
-				"execution_count": 52
+				"execution_count": 92
 			},
 			{
 				"cell_type": "code",
@@ -105,7 +104,7 @@
 					"    bow_obj = pickle.load(file)\n",
 					"    model = pickle.load(file)"
 				],
-				"execution_count": 42
+				"execution_count": 93
 			},
 			{
 				"cell_type": "code",
@@ -145,7 +144,7 @@
 					"        document.append(\" \".join(collection))\n",
 					"    return document"
 				],
-				"execution_count": 43
+				"execution_count": 94
 			},
 			{
 				"cell_type": "code",
@@ -189,7 +188,7 @@
 					"    else:\n",
 					"        return 'Negative'"
 				],
-				"execution_count": 44
+				"execution_count": 95
 			},
 			{
 				"cell_type": "code",
@@ -206,35 +205,14 @@
 				},
 				"source": [
 					"tweet_df = df.toPandas()\n",
-					"tweet_df.ExactDate=tweet_df.ExactDate.str[:-7]\n",
-					"tweet_df['ExactDate'] = tweet_df['ExactDate'].astype('datetime64[ns]')\n",
-					"tweet_df.dtypes"
-				],
-				"execution_count": 74
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					}
-				},
-				"source": [
 					"sentiment_results = []\n",
 					"for tweet in tweet_df['Tweet']:\n",
 					"    sentiment_results.append(get_tweet_sentiment(tweet))\n",
 					"tweet_df ['Sentiments_Predictions'] = sentiment_results\n",
 					"spark_df =spark.createDataFrame(tweet_df)\n",
-					"spark_df.createOrReplaceTempView(\"sentiment_data\")\n",
-					"spark_df.dtypes"
+					"spark_df.createOrReplaceTempView(\"sentiment_data\")"
 				],
-				"execution_count": 70
+				"execution_count": 96
 			},
 			{
 				"cell_type": "code",
@@ -257,25 +235,7 @@
 					"val scala_df = spark.sql(\"SELECT * FROM sentiment_data\")\n",
 					"scala_df.write.mode(\"append\").synapsesql(\"asa_twitter_db.dbo.tbl_tweet_sentiment\")"
 				],
-				"execution_count": 71
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					}
-				},
-				"source": [
-					""
-				],
-				"execution_count": null
+				"execution_count": 100
 			}
 		]
 	}
