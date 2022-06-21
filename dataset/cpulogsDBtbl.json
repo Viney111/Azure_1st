@@ -1,0 +1,242 @@
+{
+	"name": "cpulogsDBtbl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Output_sql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Cpu_Count",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Cpu_Working_Time",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Cpu_idle_Time",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "cpu_percent",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Usage_Cpu_Count",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "number_of_software_interrupts_since_boot",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "number_of_system_calls_since_boot",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "number_of_interrupts_since_boot",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "cpu_avg_load_over_1_min",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "cpu_avg_load_over_5_min",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "cpu_avg_load_over_15_min",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "system_total_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_used_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_free_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_active_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_inactive_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_buffers_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_cached_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_shared_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "system_avalible_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_total_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_used_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_free_memory",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_read_count",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_write_count",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_read_bytes",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "disk_write_bytes",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "time_spent_reading_from_disk",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "time_spent_writing_to_disk",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "time_spent_doing_actual_IO",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "number_of_bytes_sent",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "number_of_bytes_received",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "number_of_packets_sent",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "number_of_packets_recived",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "total_number_of_errors_while_receiving",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "total_number_of_errors_while_sending",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "total_number_of_incoming_packets_which_were_dropped",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "total_number_of_outcoming_packets_which_were_dropped",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "boot_time",
+				"type": "time",
+				"scale": 7
+			},
+			{
+				"name": "user_name",
+				"type": "varchar"
+			},
+			{
+				"name": "keyboard",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "mouse",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "technology",
+				"type": "varchar"
+			},
+			{
+				"name": "files_changed",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "cpulogs"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

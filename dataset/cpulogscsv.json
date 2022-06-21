@@ -1,0 +1,205 @@
+{
+	"name": "cpulogscsv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "input_blob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CpuLogData2019-09-19.csv",
+				"container": "input-cpulogsdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DateTime",
+				"type": "String"
+			},
+			{
+				"name": "Cpu Count",
+				"type": "String"
+			},
+			{
+				"name": "Cpu Working Time",
+				"type": "String"
+			},
+			{
+				"name": "Cpu idle Time",
+				"type": "String"
+			},
+			{
+				"name": "cpu_percent",
+				"type": "String"
+			},
+			{
+				"name": "Usage Cpu Count ",
+				"type": "String"
+			},
+			{
+				"name": "number of software interrupts since boot",
+				"type": "String"
+			},
+			{
+				"name": "number of system calls since boot",
+				"type": "String"
+			},
+			{
+				"name": "number of interrupts since boot",
+				"type": "String"
+			},
+			{
+				"name": "cpu avg load over 1 min",
+				"type": "String"
+			},
+			{
+				"name": "cpu avg load over 5 min",
+				"type": "String"
+			},
+			{
+				"name": "cpu avg load over 15 min",
+				"type": "String"
+			},
+			{
+				"name": "system_total_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_used_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_free_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_active_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_inactive_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_buffers_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_cached_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_shared_memory",
+				"type": "String"
+			},
+			{
+				"name": "system_avalible_memory",
+				"type": "String"
+			},
+			{
+				"name": "disk_total_memory",
+				"type": "String"
+			},
+			{
+				"name": "disk_used_memory",
+				"type": "String"
+			},
+			{
+				"name": "disk_free_memory",
+				"type": "String"
+			},
+			{
+				"name": "disk_read_count",
+				"type": "String"
+			},
+			{
+				"name": "disk_write_count",
+				"type": "String"
+			},
+			{
+				"name": "disk_read_bytes",
+				"type": "String"
+			},
+			{
+				"name": "disk_write_bytes",
+				"type": "String"
+			},
+			{
+				"name": "time spent reading from disk",
+				"type": "String"
+			},
+			{
+				"name": "time spent writing to disk",
+				"type": "String"
+			},
+			{
+				"name": "time spent doing actual I/Os",
+				"type": "String"
+			},
+			{
+				"name": "number of bytes sent",
+				"type": "String"
+			},
+			{
+				"name": "number of bytes received",
+				"type": "String"
+			},
+			{
+				"name": "number of packets sent",
+				"type": "String"
+			},
+			{
+				"name": "number of packets recived",
+				"type": "String"
+			},
+			{
+				"name": "total number of errors while receiving",
+				"type": "String"
+			},
+			{
+				"name": "total number of errors while sending",
+				"type": "String"
+			},
+			{
+				"name": "total number of incoming packets which were dropped",
+				"type": "String"
+			},
+			{
+				"name": "total number of outgoing packets which were dropped",
+				"type": "String"
+			},
+			{
+				"name": "boot_time",
+				"type": "String"
+			},
+			{
+				"name": "user_name",
+				"type": "String"
+			},
+			{
+				"name": "keyboard",
+				"type": "String"
+			},
+			{
+				"name": "mouse",
+				"type": "String"
+			},
+			{
+				"name": "technology",
+				"type": "String"
+			},
+			{
+				"name": "files_changed",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,604 @@
+{
+	"name": "cpu_data_filtering",
+	"properties": {
+		"activities": [
+			{
+				"name": "cpulogscsvtosql",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "DateTime",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "Cpu Count",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Cpu_Count",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Cpu Working Time",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Cpu_Working_Time",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Cpu idle Time",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Cpu_idle_Time",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "cpu_percent",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cpu_percent",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Usage Cpu Count ",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Usage_Cpu_Count",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "number of software interrupts since boot",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_software_interrupts_since_boot",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "number of system calls since boot",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_system_calls_since_boot",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "number of interrupts since boot",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_interrupts_since_boot",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "cpu avg load over 1 min",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cpu_avg_load_over_1_min",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "cpu avg load over 5 min",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cpu_avg_load_over_5_min",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "cpu avg load over 15 min",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cpu_avg_load_over_15_min",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "system_total_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_total_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_used_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_used_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_free_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_free_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_active_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_active_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_inactive_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_inactive_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_buffers_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_buffers_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_cached_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_cached_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_shared_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_shared_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "system_avalible_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "system_avalible_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_total_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_total_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_used_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_used_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_free_memory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_free_memory",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_read_count",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_read_count",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_write_count",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_write_count",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_read_bytes",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_read_bytes",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "disk_write_bytes",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "disk_write_bytes",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "time spent reading from disk",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "time_spent_reading_from_disk",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "time spent writing to disk",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "time_spent_writing_to_disk",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "time spent doing actual I/Os",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "time_spent_doing_actual_IO",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "number of bytes sent",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_bytes_sent",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "number of bytes received",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_bytes_received",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "number of packets sent",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_packets_sent",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "number of packets recived",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "number_of_packets_recived",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "total number of errors while receiving",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "total_number_of_errors_while_receiving",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "total number of errors while sending",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "total_number_of_errors_while_sending",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "total number of incoming packets which were dropped",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "total_number_of_incoming_packets_which_were_dropped",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "total number of outgoing packets which were dropped",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "total_number_of_outcoming_packets_which_were_dropped",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "boot_time",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "boot_time",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "user_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "user_name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "keyboard",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "keyboard",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "mouse",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "mouse",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "technology",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "technology",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "files_changed",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "files_changed",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "cpulogscsv",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "cpulogsDBtbl",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-05-31T08:56:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
