@@ -17,14 +17,11 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "38276c93-b1cf-4c57-82ab-cce34dcebcd7"
+				"spark.autotune.trackingId": "2cb08e77-a92a-4fa6-a13d-de79e962131c"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
-			"synapse_widget": {
-				"version": "0.1"
-			},
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
@@ -46,7 +43,7 @@
 				"nodeCount": 10,
 				"cores": 4,
 				"memory": 28,
-				"extraHeader": null
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -64,7 +61,6 @@
 					"from azure.storage.blob import BlobClient\n",
 					"from pyspark.sql import SparkSession"
 				],
-				"attachments": null,
 				"execution_count": 91
 			},
 			{
@@ -84,7 +80,6 @@
 				"source": [
 					"df = spark.read.load('abfss://tweetdata@dlsaviney.dfs.core.windows.net/tweets_temp.csv',format='csv',header=True)"
 				],
-				"attachments": null,
 				"execution_count": 92
 			},
 			{
@@ -109,7 +104,6 @@
 					"    bow_obj = pickle.load(file)\n",
 					"    model = pickle.load(file)"
 				],
-				"attachments": null,
 				"execution_count": 93
 			},
 			{
@@ -150,7 +144,6 @@
 					"        document.append(\" \".join(collection))\n",
 					"    return document"
 				],
-				"attachments": null,
 				"execution_count": 94
 			},
 			{
@@ -195,7 +188,6 @@
 					"    else:\n",
 					"        return 'Negative'"
 				],
-				"attachments": null,
 				"execution_count": 95
 			},
 			{
@@ -212,7 +204,6 @@
 					}
 				},
 				"source": [
-					"azure_storage_conn = \"DefaultEndpointsProtocol=https;AccountName=dlsaviney;AccountKey=336GExQh++aRZhhk2aI4EO8bJCOL9c7yIJbAUOdwG5DoGYGUKqpILQTWxNS5U9BAc/xwPNu1IiR7+AStGteisQ==;EndpointSuffix=core.windows.net\"\n",
 					"tweet_df = df.toPandas()\n",
 					"sentiment_results = []\n",
 					"for tweet in tweet_df['Tweet']:\n",
@@ -221,7 +212,6 @@
 					"spark_df =spark.createDataFrame(tweet_df)\n",
 					"spark_df.createOrReplaceTempView(\"sentiment_data\")"
 				],
-				"attachments": null,
 				"execution_count": 96
 			},
 			{
@@ -245,7 +235,6 @@
 					"val scala_df = spark.sql(\"SELECT * FROM sentiment_data\")\n",
 					"scala_df.write.mode(\"append\").synapsesql(\"asa_twitter_db.dbo.tbl_tweet_sentiment\")"
 				],
-				"attachments": null,
 				"execution_count": 100
 			}
 		]
